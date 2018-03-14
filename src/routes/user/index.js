@@ -34,7 +34,7 @@ const User = ({
     visible: modalVisible,
     maskClosable: false,
     confirmLoading: loading.effects['user/update'],
-    title: `${modalType === 'create' ? 'Create User' : 'Update User'}`,
+    title: `${modalType === 'create' ? 'Criar Pessoa' : 'Editar pessoa'}`,
     wrapClassName: 'vertical-center-modal',
     onOk (data) {
       dispatch({

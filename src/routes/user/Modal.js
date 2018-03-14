@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
-import city from '../../utils/city'
+import { Form, Input, DatePicker, Radio, Modal, Cascader } from 'antd'
 
 const FormItem = Form.Item
 
@@ -33,7 +32,6 @@ const modal = ({
         ...getFieldsValue(),
         key: item.key,
       }
-      data.address = data.address.join(' ')
       onOk(data)
     })
   }
@@ -46,7 +44,7 @@ const modal = ({
   return (
     <Modal {...modalOpts}>
       <Form layout="horizontal">
-        <FormItem label="Name" hasFeedback {...formItemLayout}>
+        <FormItem label="Nome" hasFeedback {...formItemLayout}>
           {getFieldDecorator('name', {
             initialValue: item.name,
             rules: [
@@ -56,9 +54,9 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="NickName" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('nickName', {
-            initialValue: item.nickName,
+        <FormItem label="Cartão SUS" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('cardNumber', {
+            initialValue: item.name,
             rules: [
               {
                 required: true,
@@ -66,7 +64,17 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Gender" hasFeedback {...formItemLayout}>
+        <FormItem label="Número do prontuário" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('medicalRecords', {
+            initialValue: item.name,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="Sexo" hasFeedback {...formItemLayout}>
           {getFieldDecorator('isMale', {
             initialValue: item.isMale,
             rules: [
@@ -76,58 +84,39 @@ const modal = ({
               },
             ],
           })(<Radio.Group>
-            <Radio value>Male</Radio>
-            <Radio value={false}>Female</Radio>
+            <Radio value>Masculino</Radio>
+            <Radio value={false}>Feminino</Radio>
           </Radio.Group>)}
         </FormItem>
-        <FormItem label="Age" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('age', {
-            initialValue: item.age,
+        <FormItem label="Data Nascimento" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('birthDate', {
+            initialValue: item.birthDate,
             rules: [
               {
                 required: true,
-                type: 'number',
               },
             ],
-          })(<InputNumber min={18} max={100} />)}
+          })(<DatePicker />)}
         </FormItem>
-        <FormItem label="Phone" hasFeedback {...formItemLayout}>
+        <FormItem label="Telefone" hasFeedback {...formItemLayout}>
           {getFieldDecorator('phone', {
             initialValue: item.phone,
             rules: [
               {
                 required: true,
-                pattern: /^1[34578]\d{9}$/,
-                message: 'The input is not valid phone!',
               },
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="E-mail" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('email', {
-            initialValue: item.email,
-            rules: [
-              {
-                required: true,
-                pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
-                message: 'The input is not valid E-mail!',
-              },
-            ],
-          })(<Input />)}
-        </FormItem>
-        <FormItem label="Address" hasFeedback {...formItemLayout}>
+        <FormItem label="Endereço" hasFeedback {...formItemLayout}>
           {getFieldDecorator('address', {
-            initialValue: item.address && item.address.split(' '),
+            initialValue: item.address,
             rules: [
               {
                 required: true,
               },
             ],
-          })(<Cascader
-            style={{ width: '100%' }}
-            options={city}
-            placeholder="Pick an address"
-          />)}
+          })(<Input />)}
         </FormItem>
       </Form>
     </Modal>

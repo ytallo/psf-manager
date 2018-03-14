@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import { Table, Modal } from 'antd'
 import classnames from 'classnames'
 import { DropOption } from 'components'
@@ -20,7 +21,7 @@ const List = ({
       onEditItem(record)
     } else if (e.key === '2') {
       confirm({
-        title: 'Are you sure delete this record?',
+        title: 'Desaja mesmo apagar esse registro?',
         onOk () {
           onDeleteItem(record.id)
         },
@@ -30,54 +31,36 @@ const List = ({
 
   const columns = [
     {
-      title: 'Avatar',
-      dataIndex: 'avatar',
-      key: 'avatar',
-      width: 64,
-      className: styles.avatar,
-      render: text => <img alt="avatar" width={24} src={text} />,
-    }, {
-      title: 'Name',
+      title: 'Nome',
       dataIndex: 'name',
       key: 'name',
       render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
     }, {
-      title: 'NickName',
-      dataIndex: 'nickName',
-      key: 'nickName',
+      title: 'Idade',
+      dataIndex: 'birthDate',
+      key: 'birthDate',
+      render: (text) => <span>{moment(text).toNow(true)}</span>
     }, {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    }, {
-      title: 'Gender',
+      title: 'Sexo',
       dataIndex: 'isMale',
       key: 'isMale',
       render: text => (<span>{text
-        ? 'Male'
-        : 'Female'}</span>),
+        ? 'Masculino'
+        : 'Feminino'}</span>),
     }, {
-      title: 'Phone',
+      title: 'Telefone',
       dataIndex: 'phone',
       key: 'phone',
     }, {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    }, {
-      title: 'Address',
+      title: 'Endereço',
       dataIndex: 'address',
       key: 'address',
     }, {
-      title: 'CreateTime',
-      dataIndex: 'createTime',
-      key: 'createTime',
-    }, {
-      title: 'Operation',
+      title: 'Ações',
       key: 'operation',
       width: 100,
       render: (text, record) => {
-        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: 'Update' }, { key: '2', name: 'Delete' }]} />
+        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: 'Editar' }, { key: '2', name: 'Remover' }]} />
       },
     },
   ]

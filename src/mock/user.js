@@ -53,8 +53,8 @@ const adminUsers = [
     permissions: userPermission.ADMIN,
   }, {
     id: 1,
-    username: 'guest',
-    password: 'guest',
+    username: 'rafael',
+    password: 'rafael',
     permissions: userPermission.DEFAULT,
   }, {
     id: 2,
@@ -148,9 +148,7 @@ module.exports = {
       if ({}.hasOwnProperty.call(other, key)) {
         newData = newData.filter((item) => {
           if ({}.hasOwnProperty.call(item, key)) {
-            if (key === 'address') {
-              return other[key].every(iitem => item[key].indexOf(iitem) > -1)
-            } else if (key === 'createTime') {
+            if (key === 'birthDate') {
               const start = new Date(other[key][0]).getTime()
               const end = new Date(other[key][1]).getTime()
               const now = new Date(item[key]).getTime()
@@ -183,7 +181,6 @@ module.exports = {
   [`POST ${apiPrefix}/user`] (req, res) {
     const newData = req.body
     newData.createTime = Mock.mock('@now')
-    newData.avatar = newData.avatar || Mock.Random.image('100x100', Mock.Random.color(), '#757575', 'png', newData.nickName.substr(0, 1))
     newData.id = Mock.mock('@id')
 
     database.unshift(newData)

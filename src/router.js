@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, routerRedux } from 'dva/router'
 import dynamic from 'dva/dynamic'
 import App from 'routes/app'
 import { LocaleProvider } from 'antd'
-import enUS from 'antd/lib/locale-provider/en_US'
+import ptBR from 'antd/lib/locale-provider/pt_BR'
 
 const { ConnectedRouter } = routerRedux
 
@@ -69,7 +69,7 @@ const Routers = function ({ history, app }) {
 
   return (
     <ConnectedRouter history={history}>
-      <LocaleProvider locale={enUS}>
+      <LocaleProvider locale={ptBR}>
         <App>
           <Switch>
             <Route exact path="/" render={() => (<Redirect to="/dashboard" />)} />
