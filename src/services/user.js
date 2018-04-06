@@ -1,4 +1,4 @@
-import { request, config } from 'utils'
+import { request, config, server } from 'utils'
 
 const { api } = config
 const { user } = api
@@ -12,11 +12,7 @@ export function query (params) {
 }
 
 export function create (params) {
-  return request({
-    url: user.replace('/:id', ''),
-    method: 'post',
-    data: params,
-  })
+  return server.post('/people', params)
 }
 
 export function remove (params) {

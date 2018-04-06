@@ -24,7 +24,10 @@ export default modelExtend(pageModel, {
     setup ({ dispatch, history }) {
       history.listen((location) => {
         if (location.pathname === '/user') {
-          const payload = queryString.parse(location.search) || { page: 1, pageSize: 10 }
+          const payload = queryString.parse(location.search) || {
+            page: 1,
+            pageSize: 10,
+          }
           dispatch({
             type: 'query',
             payload,
@@ -35,7 +38,6 @@ export default modelExtend(pageModel, {
   },
 
   effects: {
-
     * query ({ payload = {} }, { call, put }) {
       const data = yield call(query, payload)
       if (data) {
@@ -57,7 +59,12 @@ export default modelExtend(pageModel, {
       const data = yield call(remove, { id: payload })
       const { selectedRowKeys } = yield select(_ => _.user)
       if (data.success) {
-        yield put({ type: 'updateState', payload: { selectedRowKeys: selectedRowKeys.filter(_ => _ !== payload) } })
+        yield put({
+          type: 'updateState',
+          payload: {
+            selectedRowKeys: selectedRowKeys.filter(_ => _ !== payload),
+          },
+        })
       } else {
         throw data
       }
@@ -73,11 +80,12 @@ export default modelExtend(pageModel, {
     },
 
     * create ({ payload }, { call, put }) {
-      const data = yield call(create, payload)
-      if (data.success) {
+      try {
+        const data = yield call(create, payload)
         yield put({ type: 'hideModal' })
-      } else {
-        throw data
+        return data
+      } catch (err) {
+        throw err
       }
     },
 
@@ -91,11 +99,9 @@ export default modelExtend(pageModel, {
         throw data
       }
     },
-
   },
 
   reducers: {
-
     showModal (state, { payload }) {
       return { ...state, ...payload, modalVisible: true }
     },
@@ -108,6 +114,5 @@ export default modelExtend(pageModel, {
       window.localStorage.setItem(`${prefix}userIsMotion`, !state.isMotion)
       return { ...state, isMotion: !state.isMotion }
     },
-
   },
 })

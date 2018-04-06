@@ -48,9 +48,9 @@ const List = ({
         ? 'Masculino'
         : 'Feminino'}</span>),
     }, {
-      title: 'Telefone',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: 'C. SUS',
+      dataIndex: 'cardNumber',
+      key: 'cardNumber',
     }, {
       title: 'Endereço',
       dataIndex: 'address',

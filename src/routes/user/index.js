@@ -112,8 +112,7 @@ const User = ({
         payload: {
           modalType: 'create',
         },
-      })
-        .then(() => handleRefresh)
+      }).then(() => handleRefresh)
     },
     switchIsMotion () {
       dispatch({ type: 'user/switchIsMotion' })

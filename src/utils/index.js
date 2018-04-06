@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import lodash from 'lodash'
 import config from './config'
 import request from './request'
+import server from './server'
 import { color } from './theme'
 
 // 连字符转驼峰
@@ -103,6 +104,7 @@ module.exports = {
   config,
   request,
   color,
+  server,
   classnames,
   queryURL,
   queryArray,

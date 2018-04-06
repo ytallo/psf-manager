@@ -5,7 +5,7 @@ const config = require('../utils/config')
 const { apiPrefix } = config
 
 let usersListData = Mock.mock({
-  'data|80-100': [
+  'data|0': [
     {
       id: '@id',
       name: '@name',
@@ -152,7 +152,6 @@ module.exports = {
               const start = new Date(other[key][0]).getTime()
               const end = new Date(other[key][1]).getTime()
               const now = new Date(item[key]).getTime()
-
               if (start && end) {
                 return now >= start && now <= end
               }

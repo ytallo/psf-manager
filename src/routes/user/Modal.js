@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, DatePicker, Radio, Modal, Cascader } from 'antd'
+import { Form, Input, DatePicker, Radio, Modal } from 'antd'
 
 const FormItem = Form.Item
 
@@ -16,11 +16,7 @@ const formItemLayout = {
 const modal = ({
   item = {},
   onOk,
-  form: {
-    getFieldDecorator,
-    validateFields,
-    getFieldsValue,
-  },
+  form: { getFieldDecorator, validateFields, getFieldsValue },
   ...modalProps
 }) => {
   const handleOk = () => {
@@ -56,7 +52,7 @@ const modal = ({
         </FormItem>
         <FormItem label="Cartão SUS" hasFeedback {...formItemLayout}>
           {getFieldDecorator('cardNumber', {
-            initialValue: item.name,
+            initialValue: item.cardNumber,
             rules: [
               {
                 required: true,
@@ -64,9 +60,9 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Número do prontuário" hasFeedback {...formItemLayout}>
+        <FormItem label="N. do prontuário" hasFeedback {...formItemLayout}>
           {getFieldDecorator('medicalRecords', {
-            initialValue: item.name,
+            initialValue: item.medicalRecords,
             rules: [
               {
                 required: true,

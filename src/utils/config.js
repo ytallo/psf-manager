@@ -1,5 +1,5 @@
 const APIV1 = '/api/v1'
-const APIV2 = '/api/v2'
+export const APIV2 = 'http://localhost:3000/api'
 
 module.exports = {
   name: 'AntD Admin',
@@ -17,7 +17,7 @@ module.exports = {
     userLogin: `${APIV1}/user/login`,
     userLogout: `${APIV1}/user/logout`,
     userInfo: `${APIV1}/userInfo`,
-    users: `${APIV1}/users`,
+    users: `${APIV2}/people`,
     posts: `${APIV1}/posts`,
     user: `${APIV1}/user/:id`,
     dashboard: `${APIV1}/dashboard`,

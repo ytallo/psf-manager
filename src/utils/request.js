@@ -81,8 +81,6 @@ export default function request (options) {
         options.fetchType = 'CORS'
       } else if (YQL && YQL.indexOf(origin) > -1) {
         options.fetchType = 'YQL'
-      } else {
-        options.fetchType = 'JSONP'
       }
     }
   }
