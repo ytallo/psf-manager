@@ -9,14 +9,19 @@ import List from './List'
 import Filter from './Filter'
 import Modal from './Modal'
 
-
 const User = ({
   location, dispatch, user, loading,
 }) => {
   location.query = queryString.parse(location.search)
   const { query, pathname } = location
   const {
-    list, pagination, currentItem, modalVisible, modalType, isMotion, selectedRowKeys,
+    list,
+    pagination,
+    currentItem,
+    modalVisible,
+    modalType,
+    isMotion,
+    selectedRowKeys,
   } = user
 
   const handleRefresh = (newQuery) => {
@@ -40,7 +45,7 @@ const User = ({
       dispatch({
         type: `user/${modalType}`,
         payload: data,
-      })
+      }).then(() => handleRefresh())
     },
     onCancel () {
       dispatch({
@@ -65,12 +70,14 @@ const User = ({
       dispatch({
         type: 'user/delete',
         payload: id,
-      })
-        .then(() => {
-          handleRefresh({
-            page: (list.length === 1 && pagination.current > 1) ? pagination.current - 1 : pagination.current,
-          })
+      }).then(() => {
+        handleRefresh({
+          page:
+            list.length === 1 && pagination.current > 1
+              ? pagination.current - 1
+              : pagination.current,
         })
+      })
     },
     onEditItem (item) {
       dispatch({
@@ -79,8 +86,7 @@ const User = ({
           modalType: 'update',
           currentItem: item,
         },
-      })
-        .then(() => handleRefresh)
+      }).then(() => handleRefresh)
     },
     rowSelection: {
       selectedRowKeys,
@@ -112,7 +118,7 @@ const User = ({
         payload: {
           modalType: 'create',
         },
-      }).then(() => handleRefresh)
+      })
     },
     switchIsMotion () {
       dispatch({ type: 'user/switchIsMotion' })
@@ -125,28 +131,35 @@ const User = ({
       payload: {
         ids: selectedRowKeys,
       },
-    })
-      .then(() => {
-        handleRefresh({
-          page: (list.length === selectedRowKeys.length && pagination.current > 1) ? pagination.current - 1 : pagination.current,
-        })
+    }).then(() => {
+      handleRefresh({
+        page:
+          list.length === selectedRowKeys.length && pagination.current > 1
+            ? pagination.current - 1
+            : pagination.current,
       })
+    })
   }
 
   return (
     <Page inner>
       <Filter {...filterProps} />
-      {
-        selectedRowKeys.length > 0 &&
+      {selectedRowKeys.length > 0 && (
         <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
           <Col>
             {`Selected ${selectedRowKeys.length} items `}
-            <Popconfirm title="Are you sure delete these items?" placement="left" onConfirm={handleDeleteItems}>
-              <Button type="primary" style={{ marginLeft: 8 }}>Remove</Button>
+            <Popconfirm
+              title="Are you sure delete these items?"
+              placement="left"
+              onConfirm={handleDeleteItems}
+            >
+              <Button type="primary" style={{ marginLeft: 8 }}>
+                Remove
+              </Button>
             </Popconfirm>
           </Col>
         </Row>
-      }
+      )}
       <List {...listProps} />
       {modalVisible && <Modal {...modalProps} />}
     </Page>

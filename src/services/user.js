@@ -16,11 +16,7 @@ export function create (params) {
 }
 
 export function remove (params) {
-  return request({
-    url: user,
-    method: 'delete',
-    data: params,
-  })
+  return server.delete(`/people/${params}`)
 }
 
 export function update (params) {

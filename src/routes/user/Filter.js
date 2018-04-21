@@ -25,23 +25,21 @@ const Filter = ({
   onAdd,
   onFilterChange,
   filter,
-  form: {
-    getFieldDecorator,
-    getFieldsValue,
-    setFieldsValue,
-  },
+  form: { getFieldDecorator, getFieldsValue, setFieldsValue },
 }) => {
   const handleFields = (fields) => {
     const { birthDate } = fields
     if (birthDate.length) {
-      fields.birthDate = [birthDate[0].format('YYYY-MM-DD'), birthDate[1].format('YYYY-MM-DD')]
+      fields.birthDate = [
+        birthDate[0].format('YYYY-MM-DD'),
+        birthDate[1].format('YYYY-MM-DD'),
+      ]
     }
     return fields
   }
 
   const handleSubmit = () => {
-    let fields = getFieldsValue()
-    fields = handleFields(fields)
+    const fields = handleFields(getFieldsValue())
     onFilterChange(fields)
   }
 
@@ -79,30 +77,58 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('name', { initialValue: name })(<Search placeholder="Buscar por nome" onSearch={handleSubmit} />)}
+        {getFieldDecorator('name', { initialValue: name })(<Search
+          placeholder="Buscar por nome ou cartão do SUS"
+          onSearch={handleSubmit}
+        />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
         {getFieldDecorator('address', { initialValue: address })(<Search placeholder="Buscar por endereço" onSearch={handleSubmit} />)}
       </Col>
-      <Col {...ColProps} xl={{ span: 8 }} md={{ span: 10 }} sm={{ span: 12 }} id="birthDateRangePicker">
-        <FilterItem label="Nascimento">
+      <Col
+        {...ColProps}
+        xl={{ span: 8 }}
+        md={{ span: 10 }}
+        sm={{ span: 12 }}
+        id="birthDateRangePicker"
+      >
+        <FilterItem>
           {getFieldDecorator('birthDate', { initialValue: initialBirthDate })(<RangePicker
             style={{ width: '100%' }}
             onChange={handleChange.bind(null, 'birthDate')}
             getCalendarContainer={() => {
-              return document.getElementById('birthDateRangePicker')
-            }}
+                return document.getElementById('birthDateRangePicker')
+              }}
           />)}
         </FilterItem>
       </Col>
-      <Col {...TwoColProps} xl={{ span: 8 }} md={{ span: 20 }} sm={{ span: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+      <Col
+        {...TwoColProps}
+        xl={{ span: 8 }}
+        md={{ span: 20 }}
+        sm={{ span: 20 }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+          }}
+        >
           <div>
-            <Button type="primary" className="margin-right" onClick={handleSubmit}>Buscar</Button>
+            <Button
+              type="primary"
+              className="margin-right"
+              onClick={handleSubmit}
+            >
+              Buscar
+            </Button>
             <Button onClick={handleReset}>Limpar</Button>
           </div>
           <div className="flex-vertical-center">
-            <Button type="ghost" onClick={onAdd}>Criar</Button>
+            <Button type="ghost" onClick={onAdd}>
+              Criar
+            </Button>
           </div>
         </div>
       </Col>

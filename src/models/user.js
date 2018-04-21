@@ -55,18 +55,12 @@ export default modelExtend(pageModel, {
       }
     },
 
-    * delete ({ payload }, { call, put, select }) {
-      const data = yield call(remove, { id: payload })
-      const { selectedRowKeys } = yield select(_ => _.user)
-      if (data.success) {
-        yield put({
-          type: 'updateState',
-          payload: {
-            selectedRowKeys: selectedRowKeys.filter(_ => _ !== payload),
-          },
-        })
-      } else {
-        throw data
+    * delete ({ payload }, { call }) {
+      try {
+        const data = yield call(remove, payload)
+        return data
+      } catch (err) {
+        throw err
       }
     },
 
@@ -82,6 +76,7 @@ export default modelExtend(pageModel, {
     * create ({ payload }, { call, put }) {
       try {
         const data = yield call(create, payload)
+        yield put({ type: 'updateState' })
         yield put({ type: 'hideModal' })
         return data
       } catch (err) {
